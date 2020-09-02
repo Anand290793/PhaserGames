@@ -13,6 +13,7 @@ Preload.prototype = {
 		this.game.load.image('box', 'assets/box.png');
 		this.game.load.image('bullet', 'assets/bullet228.png');
 		this.game.load.spritesheet('player', 'assets/dude.png', 32, 48);
+		this.game.load.image('star', 'assets/star.png');
 		
 
 	},

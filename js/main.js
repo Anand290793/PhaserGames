@@ -51,6 +51,7 @@ Main.prototype = {
 		this.addBase();
 		this.createScore();
 		this.createPlayer();
+
 		this.createWeapon();
 		
 
@@ -58,7 +59,7 @@ Main.prototype = {
 		enabling the keybord input
 		*/
 		this.keySroke = this.game.input.keyboard.createCursorKeys();
-
+		this.fireButton = this.game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
 		/* 
 		Creating time loop for obstacles and incrementing the score
@@ -66,6 +67,23 @@ Main.prototype = {
 		this.timer = game.time.events.loop(this.rate, this.addObstacles, this);
 		this.Scoretimer = game.time.events.loop(100, this.incrementScore, this);
 	
+
+		/* 
+		creating stars to activate weapon
+		*/
+		this.stars = this.game.add.group();
+
+		//  We will enable physics for any star that is created in this group
+		this.stars.enableBody = true;
+	
+		for (var i = 1; i < 5; i++)
+		{
+			
+			var star = this.stars.create(i * 3700, ((this.game.world.height - this.groundHeight) - 50) , 'star');
+	
+			star.body.velocity.x = this.groundVelocity;
+		}
+
 
 	},
 	
@@ -82,12 +100,17 @@ Main.prototype = {
 		parameter5 : callback context (optional)
 		*/
 		this.game.physics.arcade.collide(this.player, this.ground);
+		this.game.physics.arcade.collide(this.stars, this.ground);
+		this.game.physics.arcade.collide(this.stars, this.player , this.weaponReady,null ,this);
+
+		
 		this.game.physics.arcade.collide(this.boxes.children[0], this.weapon.bullets, this.collisionHandler,null,this);
 		this.game.physics.arcade.collide(this.boxes.children[1], this.weapon.bullets, this.collisionHandler1,null,this);
+		
 		this.game.physics.arcade.collide(this.player, this.boxes, this.gameOver, null, this);
 
 
-		if (this.fireButton.isDown)
+		if (this.fireButton.isDown && this.go === true)
 		{
 			this.weapon.fire();
 		}
@@ -97,6 +120,14 @@ Main.prototype = {
 			this.player.body.velocity.y = -800;
 		}
 			
+	},
+
+	weaponReady : function() {
+		this.stars.kill();
+		this.go =true;
+		//this.collisionHandler();
+		//this.collisionHandler1();
+
 	},
 
 	/* 
