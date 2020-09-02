@@ -79,7 +79,7 @@ Main.prototype = {
 		for (var i = 1; i < 5; i++)
 		{
 			
-			var star = this.stars.create(i * 3700, ((this.game.world.height - this.groundHeight) - 50) , 'star');
+			var star = this.stars.create(i * 3710, ((this.game.world.height - this.groundHeight) - 130) , 'star');
 	
 			star.body.velocity.x = this.groundVelocity;
 		}
@@ -125,8 +125,6 @@ Main.prototype = {
 	weaponReady : function() {
 		this.stars.kill();
 		this.go =true;
-		//this.collisionHandler();
-		//this.collisionHandler1();
 
 	},
 
@@ -228,10 +226,10 @@ Main.prototype = {
 	createScore: function () {
 
 		var scoreFont = "70px Comic Sans MS";
-		var modalHeader = "20px Comic Sans MS";
+		var modalHeader = "30px Comic Sans MS";
 
 		this.jumpText = this.game.add.text(this.game.world.centerX - 100, 200, "Press Up Key To Jump", { font: modalHeader, fill: "#EC33FF" });
-		this.shootText = this.game.add.text(this.game.world.centerX -100, 250, "Press Spacebar To Shoot Bullets", { font: modalHeader, fill: "#EC33FF" });
+		this.shootText = this.game.add.text(this.game.world.centerX -100, 250, "Collect Stars and Press Spacebar To Shoot Bullets", { font: modalHeader, fill: "#EC33FF" });
 
 		this.jumpText.alpha =0;
 		this.shootText.alpha =0;
@@ -239,8 +237,8 @@ Main.prototype = {
 		/* 
 		adding text on the middle of the screen to maintain the player's focus on the game screen
 		*/
-		this.game.add.tween(this.jumpText).to({alpha: 1},2000,Phaser.Easing.Linear.None,true,0,2000,true);
-		this.game.add.tween(this.shootText).to({alpha: 1},2000,Phaser.Easing.Linear.None,true,0,2000,true);
+		this.game.add.tween(this.jumpText).to({alpha: 1},4000,Phaser.Easing.Linear.None,true,0,2000,true);
+		this.game.add.tween(this.shootText).to({alpha: 1},4000,Phaser.Easing.Linear.None,true,0,2000,true);
 
 		this.scoreLabel = this.game.add.text(this.game.world.centerX, 70, "0", { font: scoreFont, fill: "#fff" });
 		this.scoreLabel.anchor.setTo(0.5, 0.5);
