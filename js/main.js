@@ -60,6 +60,7 @@ Main.prototype = {
 		*/
 		this.keySroke = this.game.input.keyboard.createCursorKeys();
 		this.fireButton = this.game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+		this.game.input.addPointer();
 
 		/* 
 		Creating time loop for obstacles and incrementing the score
@@ -110,12 +111,12 @@ Main.prototype = {
 		this.game.physics.arcade.collide(this.player, this.boxes, this.gameOver, null, this);
 
 
-		if (this.fireButton.isDown && this.go === true)
+		if ((this.fireButton.isDown || (this.game.input.pointer1.duration > 250)) && this.go === true)
 		{
 			this.weapon.fire();
 		}
 
-		if (this.keySroke.up.isDown && this.player.body.touching.down)
+		if ((this.keySroke.up.isDown || this.game.input.pointer1.isDown) && this.player.body.touching.down)
 		{
 			this.player.body.velocity.y = -800;
 		}
@@ -134,7 +135,7 @@ Main.prototype = {
 	*/
 	collisionHandler : function (bullets,box){
 		this.weapon.bullets.children[0].kill();
-		this.game.camera.shake(0.01, 500);
+		this.game.camera.shake(0.009, 500);
 		this.boxes.children[0].kill();
 	   },
 	collisionHandler1 : function (bullets,box){
@@ -274,6 +275,7 @@ Main.prototype = {
 	},
 
 	gameOver: function(){
+		
 		this.game.state.start('GameOver');
 	}
 

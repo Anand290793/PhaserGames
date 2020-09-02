@@ -7,12 +7,13 @@ GameOver.prototype = {
 			this.game.stage.backgroundColor = '479cde';
 
 			this.resume = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+			
 			this.showScore();
 	},
 
 	update: function () {
 
-		if (this.resume.isDown) {
+		if (this.resume.isDown || this.game.input.pointer1.isDown) {
 			this.restartGame();
 		}
 
