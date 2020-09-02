@@ -79,7 +79,7 @@ Main.prototype = {
 		for (var i = 1; i < 5; i++)
 		{
 			
-			var star = this.stars.create(i * 3710, ((this.game.world.height - this.groundHeight) - 130) , 'star');
+			var star = this.stars.create(i * 3800, ((this.game.world.height - this.groundHeight) - 150) , 'star');
 	
 			star.body.velocity.x = this.groundVelocity;
 		}
@@ -124,6 +124,7 @@ Main.prototype = {
 
 	weaponReady : function() {
 		this.stars.kill();
+		
 		this.go =true;
 
 	},
@@ -133,10 +134,12 @@ Main.prototype = {
 	*/
 	collisionHandler : function (bullets,box){
 		this.weapon.bullets.children[0].kill();
+		this.game.camera.shake(0.01, 500);
 		this.boxes.children[0].kill();
 	   },
 	collisionHandler1 : function (bullets,box){
 		this.weapon.bullets.children[0].kill();
+		this.game.camera.shake(0.01, 500);
 		this.boxes.children[1].kill();
 	   },
 
@@ -228,8 +231,8 @@ Main.prototype = {
 		var scoreFont = "70px Comic Sans MS";
 		var modalHeader = "30px Comic Sans MS";
 
-		this.jumpText = this.game.add.text(this.game.world.centerX - 100, 200, "Press Up Key To Jump", { font: modalHeader, fill: "#EC33FF" });
-		this.shootText = this.game.add.text(this.game.world.centerX -100, 250, "Collect Stars and Press Spacebar To Shoot Bullets", { font: modalHeader, fill: "#EC33FF" });
+		this.jumpText = this.game.add.text(0 , 200, "Press Up Key To Jump", { font: modalHeader, fill: "#EC33FF" });
+		this.shootText = this.game.add.text(0, 250, "Collect Stars and Press Spacebar To Shoot Bullets", { font: modalHeader, fill: "#EC33FF" });
 
 		this.jumpText.alpha =0;
 		this.shootText.alpha =0;
